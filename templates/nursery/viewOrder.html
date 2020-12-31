@@ -1,0 +1,22 @@
+{%extends "nursery/dashboard.html"%}
+{%block content%}
+<table class="table table-striped table-bordered table-hover">
+    <caption>Orders Placed</caption>
+    <tr>
+        <th>Plant Name</th>
+        <th>Price</th>
+        <th>Person Name</th>
+        <th>Contact Details</th>
+        <th>Delivery Address</th>
+    </tr>
+    {%for item in obj%}
+    <tr>
+        <td>{{item.product.name}}</td>
+        <td>{{item.product.price}}</td>
+        <td>{{item.ordered_by.first_name}}</td>
+        <td>{{item.ordered_by.email}}</td>
+        <td>{{item.address}}</td>
+    </tr>
+    {%endfor%}
+</table>
+{%endblock%}

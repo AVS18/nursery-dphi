@@ -1,0 +1,37 @@
+{%extends "customer/dashboard.html"%}
+{%block content%}
+<form action="/customer/viewPlant" method="POST">
+    {%csrf_token%}
+    <div class="container">
+        <div class="row form-group">
+            <div class="col-sm">
+                <label for="Name">Plant Name</label>
+                <select name="name" id="Name" class="form-control">
+                    {%for item in distinct%}
+                    <option value="{{item}}">{{item}}</option>
+                    {%endfor%}
+                </select>
+                <br>
+                <input type="submit" value="Filter" class="btn btn-outline-success">  
+            </div>
+        </div>
+    </div>
+</form>
+<table class="table table-striped table-bordered table-hover">
+    <caption>Plants Available</caption>
+    <tr>
+        <th>Plant Name</th>
+        <th>Image</th>
+        <th>Price</th>
+        <th>Add To Cart</th>
+    </tr>
+    {%for item in obj%}
+    <tr>
+        <td>{{item.name}}</td>
+        <td><img src="{{item.image.url}}" width="200" height="200" alt="Image"></td>
+        <td>{{item.price}}</td>
+        <td><a href="/customer/addCart/{{item.id}}" class="btn btn-link">Click Here</td>
+    </tr>
+    {%endfor%}
+</table>
+{%endblock%}

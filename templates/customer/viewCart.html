@@ -1,0 +1,42 @@
+{%extends "customer/dashboard.html"%}
+{%block content%}
+<table class="table table-striped table-bordered table-hover">
+    <caption>Plants Added</caption>
+    <tr>
+        <th>Plant Name</th>
+        <th>Price (per unit)</th>
+        <th>Option</th>
+    </tr>
+    {%for item in obj%}
+    <tr>
+        <td>{{item.items.name}}</td>
+        <td>{{item.items.price}}</td>
+        <td><a href="/customer/removeItem/{{item.id}}" class="btn btn-link">Remove this Item</a></td>
+    </tr>
+    {%endfor%}
+</table>
+<a class="btn btn-outline-primary" data-toggle="modal" data-target="#confirmOrder">Place Order</a>
+    <div class="modal fade" id="confirmOrder" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <form action="/customer/order" method="POST">
+                {%csrf_token%}
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Order</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body form-group">
+                        <label for="address">Enter your Address</label>              
+                        <textarea name="address" id="address" class="form-control" cols="30" rows="10" required></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Place Order</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{%endblock%}
